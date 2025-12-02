@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client'
-import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 
 declare global {
   // allow global `var` declarations
@@ -10,7 +9,6 @@ declare global {
 const prisma =
   global.prisma ||
   new PrismaClient({
-    adapter: new PrismaBetterSqlite3({ url: 'file:./dev.db' }),
     log: ['error'],
   })
 
