@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Farmer {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique
+  name      String
+  phone     String
+  address   String
+  createdAt DateTime @default(now())
+  collections Collection[]
+}
+
+model RateChart {
+  id   Int   @id @default(autoincrement())
+  fat  Float @unique
+  rate Float
+}
+
+model Collection {
+  id        Int      @id @default(autoincrement())
+  farmerId  Int
+  farmer    Farmer   @relation(fields: [farmerId], references: [id])
+  date      DateTime
+  shift     String // MORNING, EVENING
+  fat       Float
+  quantity  Float
+  rate      Float
+  amount    Float
+  createdAt DateTime @default(now())
+}
